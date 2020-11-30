@@ -2,6 +2,7 @@ package pl.kopp.statistics;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kopp.task.model.domain.Task;
@@ -42,6 +43,13 @@ public class DummyStatisticsController {
         List<Task> all = taskRepository.getAll();
         StatisticsService statisticsService = new StatisticsService(all);
         return statisticsService.getTotalTimePerUser();
+    }
+
+    @GetMapping("/epic/{id}/time")
+    public Map<String, Long> getEpicTime(@PathVariable Long id) {
+        List<Task> all = taskRepository.getAll();
+        StatisticsService statisticsService = new StatisticsService(all);
+        return statisticsService.getEpicTime(id);
     }
 
     @GetMapping("/days/time")

@@ -7,6 +7,7 @@ import pl.kopp.task.model.domain.TaskRepository;
 import pl.kopp.worklog.WorkLog;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,8 +62,13 @@ public class StatisticsService {
     }
 
     public Map<String, Long> getEpicTime(Long id) {
+        Predicate<Task> con1 = t -> t.getId().equals(id);
+        Predicate<Task> con2 = t -> t.getParent().equals(id);
 
-        return null;
+        return tasks.stream()
+                .filter(con1.or(con2))
+                .collect(
+                Collectors.groupingBy(Task::getProject, Collectors.summingLong(Task::getTotalTimeLogged)));
     }
 
     public Map<String, Long> getTotalTimePerDay() {

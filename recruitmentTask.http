@@ -14,5 +14,9 @@ GET http://localhost:8080/statistics/user/time
 Content-Type: application/json
 
 ###
+GET http://localhost:8080/statistics//epic/2/time
+Content-Type: application/json
+
+###
 GET http://localhost:8080/statistics/days/time
 Content-Type: application/json
